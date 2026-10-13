@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto System - Documentação do Banco de Dados</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-glow: rgba(16, 185, 129, 0.4);
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 3rem 1.5rem; }
+
+        .container { max-width: 1100px; width: 100%; margin: 0 auto; }
+
+        header { text-align: center; margin-bottom: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 2rem; }
+        header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+        header h1 span { color: var(--primary); }
+        header p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; }
+
+        .section-title { font-size: 1.5rem; font-weight: 700; margin: 2.5rem 0 1.5rem 0; display: flex; align-items: center; gap: 10px; color: var(--primary); }
+
+        /* GRID DE TABELAS */
+        .grid-tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.3); transition: 0.3s; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 15px 30px var(--primary-glow); transform: translateY(-3px); }
+        .card h3 { font-size: 1.2rem; color: var(--text-main); margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .card h3 code { font-size: 0.9rem; background: rgba(16, 185, 129, 0.2); color: var(--primary); padding: 2px 8px; border-radius: 6px; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin-bottom: 1rem; }
+        
+        .field-list { list-style: none; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--border-color); padding-top: 10px; }
+        .field-list li { font-size: 0.85rem; color: #cbd5e1; display: flex; justify-content: space-between; }
+        .field-list li span { color: var(--text-muted); font-family: monospace; }
+
+        /* DESTAQUE DE GATILHOS E RECURSOS */
+        .features-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; margin-top: 2rem; }
+        .features-box h3 { font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-main); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .feature-item h4 { color: var(--primary); margin-bottom: 0.5rem; font-size: 1rem; }
+        .feature-item p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+
+        footer { margin-top: 4rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); padding-top: 2rem; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Arquitetura do Banco de Dados — <span>Auto System</span></h1>
+            <p>Documentação técnica e resumo estrutural do banco relacional em SQLite[cite: 5] (<code>oficina.db</code> / <code>oficina.sql</code>[cite: 5]), projetado para gerenciar clientes[cite: 5], veículos[cite: 5], ordens de serviço[cite: 5] e automações financeiras[cite: 5].</p>
+        </header>
+
+        <h2 class="section-title">📊 Tabelas Principais do Sistema</h2>
+
+        <div class="grid-tables">
+            <!-- CLIENTES -->
+            <div class="card">
+                <h3>Clientes <code>clientes</code></h3>
+                <p>Armazena as informações cadastrais dos proprietários dos veículos.</p>
+                <ul class="field-list">
+                    <li>id_cliente <span>INTEGER (PK)</span></li>
+                    <li>nome <span>TEXT (NOT NULL)</span></li>
+                    <li>cpf <span>TEXT (UNIQUE)</span></li>
+                    <li>telefone / email <span>TEXT</span></li>
+                    <li>data_cadastro <span>TIMESTAMP</span></li>
+                </ul>
+            </div>
+
+            <!-- VEICULOS -->
+            <div class="card">
+                <h3>Veículos <code>veiculos</code></h3>
+                <p>Relaciona cada automóvel cadastrado a um cliente específico[cite: 5].</p>
+                <ul class="field-list">
+                    <li>id_veiculo <span>INTEGER (PK)</span></li>
+                    <li>id_cliente <span>INTEGER (FK)</span></li>
+                    <li>placa <span>TEXT (UNIQUE)</span></li>
+                    <li>marca / modelo / ano <span>TEXT / INT</span></li>
+                </ul>
+            </div>
+
+            <!-- MECANICOS -->
+            <div class="card">
+                <h3>Mecânicos <code>mecanicos</code></h3>
+                <p>Equipe técnica responsável pela execução dos serviços na oficina[cite: 5].</p>
+                <ul class="field-list">
+                    <li>id_mecanico <span>INTEGER (PK)</span></li>
+                    <li>nome <span>TEXT (NOT NULL)</span></li>
+                    <li>especialidade <span>TEXT</span></li>
+                </ul>
+            </div>
+
+            <!-- SERVICOS -->
+            <div class="card">
+                <h3>Serviços <code>servicos</code></h3>
+                <p>Catálogo de serviços e peças padronizados com seus preços base[cite: 5].</p>
+                <ul class="field-list">
+                    <li>id_servico <span>INTEGER (PK)</span></li>
+                    <li>descricao <span>TEXT (NOT NULL)</span></li>
+                    <li>preco_base <span>REAL (NOT NULL)</span></li>
+                </ul>
+            </div>
+
+            <!-- ORDENS DE SERVICO -->
+            <div class="card">
+                <h3>Ordens de Serviço <code>ordens_servico</code></h3>
+                <p>Controla o fluxo operacional e status da manutenção do veículo[cite: 5].</p>
+                <ul class="field-list">
+                    <li>id_os <span>INTEGER (PK)</span></li>
+                    <li>id_veiculo / id_mecanico <span>FK</span></li>
+                    <li>status <span>CHECK (Status válidos)</span></li>
+                    <li>valor_total <span>REAL (Calculado)</span></li>
+                </ul>
+            </div>
+
+            <!-- ITENS DA OS -->
+            <div class="card">
+                <h3>Itens da OS <code>itens_os</code></h3>
+                <p>Tabela associativa que detalha os serviços/peças aplicados em cada OS[cite: 5].</p>
+                <ul class="field-list">
+                    <li>id_item <span>INTEGER (PK)</span></li>
+                    <li>id_os / id_servico <span>FK</span></li>
+                    <li>quantidade / valor_unitario <span>INT/REAL</span></li>
+                    <li>subtotal <span>GENERATED (Qtd * Unit)</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RECURSOS E AUTOMACAO -->
+        <div class="features-box">
+            <h3>⚙️ Automação e Regras de Negócio Implementadas</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>🔄 Integridade Referencial (FK)</h4>
+                    <p>O uso de <code>FOREIGN KEY ... ON DELETE CASCADE</code> garante que se um cliente for apagado, seus veículos associados e dados dependentes sejam limpos automaticamente do banco[cite: 5].</p>
+                </div>
+                <div class="feature-item">
+                    <h4>⚡ Gatilho Automático (Trigger)</h4>
+                    <p>O gatilho <code>trg_soma_total_os</code> dispara após a inserção de itens na OS, somando os subtotais e atualizando o <code>valor_total</code> da ordem de serviço em tempo real[cite: 5].</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔒 Restrição de Status (CHECK)</h4>
+                    <p>A coluna <code>status</code> possui validação nativa permitindo apenas estados controlados, como <em>Orçamento Pendente</em>, <em>Em Andamento</em> e <em>Concluído</em>[cite: 5].</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Auto System Database Documentation &copy; 2026 — Base Operacional Recife-PE[cite: 5]
+        </footer>
+    </div>
+
+</body>
+</html>

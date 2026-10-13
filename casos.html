@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto System - Documentação de Testes (QA)</title>
+    <style>
+        :root {
+            --primary: #10b981;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            
+            --pos-bg: rgba(16, 185, 129, 0.15);
+            --pos-color: #6ee7b7;
+            --pos-border: rgba(16, 185, 129, 0.3);
+
+            --neg-bg: rgba(239, 68, 68, 0.15);
+            --neg-color: #fca5a5;
+            --neg-border: rgba(239, 68, 68, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; padding: 3rem 1.5rem; }
+
+        .container { max-width: 1400px; width: 100%; margin: 0 auto; }
+
+        header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; }
+        header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        header h1 span { color: var(--primary); }
+        header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        /* TABELA */
+        .table-wrapper { background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color); overflow-x: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
+        thead { background: #141e30; border-bottom: 2px solid var(--border-color); }
+        th, td { padding: 1.2rem; text-align: left; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        
+        th { color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.5px; }
+        
+        tr:hover { background: rgba(255, 255, 255, 0.02); }
+        tr:last-child td { border-bottom: none; }
+
+        .id-cell { font-weight: 700; color: var(--primary); white-space: nowrap; font-size: 0.95rem; }
+        .module-cell { font-weight: 600; color: var(--text-main); font-size: 0.95rem; }
+        .title-cell { font-weight: 600; font-size: 0.95rem; color: #e2e8f0; }
+        
+        .badge { padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700; display: inline-block; letter-spacing: 0.5px; text-transform: uppercase; }
+        .badge.positivo { background: var(--pos-bg); color: var(--pos-color); border: 1px solid var(--pos-border); }
+        .badge.negativo { background: var(--neg-bg); color: var(--neg-color); border: 1px solid var(--neg-border); }
+
+        .steps-cell, .expected-cell { line-height: 1.6; color: var(--text-muted); font-size: 0.9rem; }
+        .expected-cell { color: #cbd5e1; } /* Ligeiramente mais claro que os passos */
+
+        footer { margin-top: 3rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); padding-top: 2rem; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Plano de Testes Integrados — <span>Auto System</span></h1>
+            <p>Matriz completa de rastreabilidade (40 Casos de Teste cobrindo Autenticação, Navegação, Dashboards e Chatbot de IA).</p>
+        </header>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">ID</th>
+                        <th style="width: 150px;">Módulo</th>
+                        <th style="width: 120px;">Tipo</th>
+                        <th style="width: 250px;">Cenário de Teste</th>
+                        <th>Passos de Execução</th>
+                        <th style="width: 300px;">Resultado Esperado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="id-cell">TC-01</td><td class="module-cell">Navegação</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Retorno à Home pelo Logo</td>
+                        <td class="steps-cell">1. Acessar tela de Login.<br>2. Clicar no logo 'Auto System' no header.</td>
+                        <td class="expected-cell">Redirecionamento imediato para a tela inicial (Hero banner).</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-02</td><td class="module-cell">Navegação</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Acesso à Área do Cliente</td>
+                        <td class="steps-cell">1. Na Home, clicar no botão 'Área do Cliente'.</td>
+                        <td class="expected-cell">Renderizar a view de login (#view-login). Ocultar footer.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-03</td><td class="module-cell">Navegação</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Acesso ao Painel Restrito</td>
+                        <td class="steps-cell">1. Na Home, clicar no botão 'Acesso Restrito'.</td>
+                        <td class="expected-cell">Renderizar a view admin (#view-admin). Ocultar footer.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-04</td><td class="module-cell">Navegação</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Alternância de views (SPA)</td>
+                        <td class="steps-cell">1. Clicar repetidamente entre Área do Cliente e Acesso Restrito.</td>
+                        <td class="expected-cell">Transição suave sem recarregamento da página (F5) e sem erros no console.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-05</td><td class="module-cell">Navegação</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Redimensionamento Mobile</td>
+                        <td class="steps-cell">1. Reduzir a largura da janela para menos de 768px.</td>
+                        <td class="expected-cell">Os botões do header devem se adaptar ou empilhar sem quebrar o layout lateralmente.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-06</td><td class="module-cell">Cadastro</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Cadastro com dados válidos</td>
+                        <td class="steps-cell">1. Preencher Nome, CPF, E-mail, Senhas idênticas.<br>2. Clicar em 'Finalizar Cadastro'.</td>
+                        <td class="expected-cell">Exibir alerta de sucesso e redirecionar para a tela de Login.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-07</td><td class="module-cell">Cadastro</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">E-mail inválido</td>
+                        <td class="steps-cell">1. Inserir e-mail sem '@' ou domínio.<br>2. Tentar enviar formulário.</td>
+                        <td class="expected-cell">Navegador bloqueia envio (validação HTML5 type='email').</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-08</td><td class="module-cell">Cadastro</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Campos obrigatórios vazios</td>
+                        <td class="steps-cell">1. Deixar o campo 'CPF' vazio.<br>2. Tentar enviar formulário.</td>
+                        <td class="expected-cell">Navegador bloqueia envio (validação HTML5 required).</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-09</td><td class="module-cell">Cadastro</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Senhas divergentes</td>
+                        <td class="steps-cell">1. Inserir '123' em Senha e '321' em Confirmar.<br>2. Tentar enviar.</td>
+                        <td class="expected-cell">O sistema deve impedir o envio e exibir alerta de senhas não correspondentes.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-10</td><td class="module-cell">Cadastro</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Link 'Fazer Login'</td>
+                        <td class="steps-cell">1. Na tela de cadastro, clicar em 'Fazer Login'.</td>
+                        <td class="expected-cell">Renderizar formulário de login de cliente.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-11</td><td class="module-cell">Login Cliente</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Login com e-mail válido</td>
+                        <td class="steps-cell">1. Inserir e-mail correto e senha.<br>2. Clicar em 'Entrar'.</td>
+                        <td class="expected-cell">Header muda para modo logado. Renderiza #view-dash-cliente.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-12</td><td class="module-cell">Login Cliente</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Atualização da saudação</td>
+                        <td class="steps-cell">1. Fazer login como cliente.</td>
+                        <td class="expected-cell">Header exibe 'Olá, João Silva' com nome estilizado em negrito.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-13</td><td class="module-cell">Login Cliente</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Submissão vazia</td>
+                        <td class="steps-cell">1. Clicar em 'Entrar' sem preencher os campos.</td>
+                        <td class="expected-cell">Foco é forçado para o primeiro campo vazio (required).</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-14</td><td class="module-cell">Login Cliente</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Senha incorreta</td>
+                        <td class="steps-cell">1. Inserir e-mail válido e senha errada (simulação).</td>
+                        <td class="expected-cell">Exibir mensagem 'Credenciais inválidas' sem logar.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-15</td><td class="module-cell">Login Admin</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Login com credencial Admin</td>
+                        <td class="steps-cell">1. Inserir 'admin' e senha.<br>2. Clicar em 'Acessar Sistema'.</td>
+                        <td class="expected-cell">Header muda para modo logado. Renderiza #view-dash-admin.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-16</td><td class="module-cell">Login Admin</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Acesso Admin com credencial Cliente</td>
+                        <td class="steps-cell">1. Tentar usar e-mail de cliente no formulário admin.</td>
+                        <td class="expected-cell">Acesso negado. Mensagem de erro de permissão.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-17</td><td class="module-cell">Header</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Logout de Cliente</td>
+                        <td class="steps-cell">1. Logar como Cliente.<br>2. Clicar no botão 'Sair'.</td>
+                        <td class="expected-cell">Header volta ao modo deslogado. Renderiza tela inicial. Campos de input são limpos.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-18</td><td class="module-cell">Header</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Logout de Admin</td>
+                        <td class="steps-cell">1. Logar como Admin.<br>2. Clicar no botão 'Sair'.</td>
+                        <td class="expected-cell">Header volta ao modo deslogado. Renderiza tela inicial. Campos limpos.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-19</td><td class="module-cell">Dash. Cliente</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Renderização da Tabela</td>
+                        <td class="steps-cell">1. Logar como Cliente.</td>
+                        <td class="expected-cell">Tabela 'Ordens de Serviço' deve listar placa, serviço e status corretamente.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-20</td><td class="module-cell">Dash. Cliente</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Cores dos Status (Badge)</td>
+                        <td class="steps-cell">1. Logar como Cliente.<br>2. Observar coluna 'Status'.</td>
+                        <td class="expected-cell">'Na Oficina' deve ser amarelo; 'Orçamento' deve ser azul claro.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-21</td><td class="module-cell">Dash. Cliente</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Botão Agendar Revisão</td>
+                        <td class="steps-cell">1. Clicar em '+ Agendar Revisão'.</td>
+                        <td class="expected-cell">Abertura de modal/tela para seleção de data.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-22</td><td class="module-cell">Dash. Cliente</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Links de Ação da Tabela</td>
+                        <td class="steps-cell">1. Clicar em 'Ver Detalhes' ou 'Aprovar'.</td>
+                        <td class="expected-cell">Ação clicável, estilo com hover ativado e cursor em formato pointer.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-23</td><td class="module-cell">Dash. Admin</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Carregamento dos Cards</td>
+                        <td class="steps-cell">1. Logar como Admin.</td>
+                        <td class="expected-cell">Cards numéricos (OS em Andamento, Peças, Faturamento) renderizados.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-24</td><td class="module-cell">Dash. Admin</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Layout da Tabela Admin</td>
+                        <td class="steps-cell">1. Logar como Admin.</td>
+                        <td class="expected-cell">Tabela 'Pátio Atual' exibindo colunas de Cliente, Placa e Serviço alinhadas.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-25</td><td class="module-cell">Dash. Admin</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Badge Status Concluído</td>
+                        <td class="steps-cell">1. Logar como Admin.<br>2. Visualizar OS #1041.</td>
+                        <td class="expected-cell">Status 'Pronto' deve apresentar badge cor verde suave.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-26</td><td class="module-cell">Dash. Admin</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Responsividade da Tabela</td>
+                        <td class="steps-cell">1. Redimensionar para mobile na tela Admin.</td>
+                        <td class="expected-cell">Tabela ganha barra de rolagem horizontal nativa (overflow-x).</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-27</td><td class="module-cell">Segurança</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Rota protegida Admin</td>
+                        <td class="steps-cell">1. Sem logar, tentar forçar a visibilidade da div #view-dash-admin.</td>
+                        <td class="expected-cell">Bloqueio imediato ou redirecionamento para tela de Login.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-28</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Abrir Chatbot</td>
+                        <td class="steps-cell">1. Clicar no avatar 3D flutuante do Max.</td>
+                        <td class="expected-cell">Janela chatBox abre com animação. Input recebe o foco de digitação.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-29</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Fechar Chatbot</td>
+                        <td class="steps-cell">1. Clicar no 'X' no cabeçalho do chat.</td>
+                        <td class="expected-cell">Janela chatBox é ocultada (display: none).</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-30</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Mensagem inicial</td>
+                        <td class="steps-cell">1. Abrir chat pela primeira vez.</td>
+                        <td class="expected-cell">Exibir saudação inicial automática 'Olá! Eu sou o Max...'.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-31</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Envio de mensagem</td>
+                        <td class="steps-cell">1. Digitar 'teste' no input.<br>2. Pressionar Enter ou clicar no SVG.</td>
+                        <td class="expected-cell">Mensagem sobe para o chat no estilo azul (à direita). Input é limpo.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-32</td><td class="module-cell">Chat IA</td><td><span class="badge negativo">Negativo</span></td><td class="title-cell">Envio de string vazia</td>
+                        <td class="steps-cell">1. Deixar input vazio ou com espaços.<br>2. Pressionar Enter.</td>
+                        <td class="expected-cell">Nenhuma mensagem é adicionada. IA não é acionada.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-33</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Indicador de Digitação</td>
+                        <td class="steps-cell">1. Enviar qualquer mensagem válida.</td>
+                        <td class="expected-cell">Três pontos saltitantes aparecem à esquerda por 1.2s a 2s antes da resposta.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-34</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">IA: Contexto 'Orçamento'</td>
+                        <td class="steps-cell">1. Enviar: 'Quanto custa o orçamento?'</td>
+                        <td class="expected-cell">IA retorna o preço fixado (R$ 150) da avaliação.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-35</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">IA: Contexto 'Horário'</td>
+                        <td class="steps-cell">1. Enviar: 'Que horas funciona?'</td>
+                        <td class="expected-cell">IA retorna o horário (08h às 18h).</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-36</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">IA: Contexto 'Placa/Status'</td>
+                        <td class="steps-cell">1. Enviar: 'Meu carro está pronto?'</td>
+                        <td class="expected-cell">IA retorna um link clicável 'Área do Cliente'.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-37</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">IA: Link integrado no Chat</td>
+                        <td class="steps-cell">1. Enviar pergunta sobre status.<br>2. Clicar no link respondido.</td>
+                        <td class="expected-cell">A aplicação troca o layout para a tela de Login Cliente.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-38</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">IA: Fallback Genérico</td>
+                        <td class="steps-cell">1. Enviar: 'Bateria descarregou' (Sem palavra-chave).</td>
+                        <td class="expected-cell">IA orienta a contatar a central de Recife pelo WhatsApp.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-39</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Auto-scroll do histórico</td>
+                        <td class="steps-cell">1. Enviar 5 mensagens consecutivas.</td>
+                        <td class="expected-cell">A janela rola automaticamente para o fim a cada nova inserção.</td>
+                    </tr>
+                    <tr>
+                        <td class="id-cell">TC-40</td><td class="module-cell">Chat IA</td><td><span class="badge positivo">Positivo</span></td><td class="title-cell">Persistência Visual</td>
+                        <td class="steps-cell">1. Trocar da view Home para Login.<br>2. Abrir Chat.</td>
+                        <td class="expected-cell">Widget flutuante visível e funcional em qualquer tela.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer>
+            Auto System QA Suite &copy; 2026 — Documentação de Testes (100% de Cobertura Front-End)
+        </footer>
+    </div>
+
+</body>
+</html>
