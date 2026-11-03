@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AutoMecânica | Oficina Mecânica</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f4f6;--sf:#fff;--tx:#14171a;--mu:#5f6b7a;--bd:#dde1e7;--pr:#f5c400;--dk:#14171a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1013;--sf:#181c21;--tx:#e8eaed;--mu:#98a2b0;--bd:#2a3038}}
+:root[data-theme="dark"]{--bg:#0e1013;--sf:#181c21;--tx:#e8eaed;--mu:#98a2b0;--bd:#2a3038}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;font:15px/1.6 Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--dk);z-index:10}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;margin:0;line-height:1.05;letter-spacing:.01em}
+h1{font-size:clamp(2.6rem,7vw,4.6rem)}h2{font-size:2.2rem;margin-bottom:8px}h3{font-size:1.4rem}
+a{color:inherit}.mu{color:var(--mu)}.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.btn{background:var(--pr);color:#14171a;border:0;padding:11px 20px;border-radius:6px;font:600 .95rem Inter,sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
+.btn:hover{filter:brightness(.93)}.btn.gh{background:transparent;color:#fff;border:1px solid #fff6}
+.b2{border:1px solid var(--bd);background:var(--sf);color:var(--tx);padding:6px 10px;border-radius:6px;cursor:pointer;font:inherit;font-size:.8rem}.dg{color:#ef4444}
+:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:20px}
+label{display:grid;gap:4px;font-weight:500;font-size:.85rem}
+input,select,textarea{padding:10px 12px;border:1px solid var(--bd);border-radius:6px;background:var(--sf);color:var(--tx);font:inherit;width:100%}
+/* site */
+.hd{background:var(--dk);color:#fff;position:sticky;top:env(safe-area-inset-top,0px);z-index:9}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.nav nav{display:flex;gap:18px;align-items:center;font-size:.9rem;overflow-x:auto}.nav nav a{text-decoration:none;white-space:nowrap}
+.lg{font:700 1.5rem 'Barlow Condensed',sans-serif;color:var(--pr);white-space:nowrap}
+.hero{background:var(--dk);color:#fff;padding:64px 0 72px;border-bottom:8px solid var(--pr)}
+.hg{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.hero p{font-size:1.1rem;color:#cbd2db;max-width:46ch;margin:18px 0 26px}
+.tk{background:#f8f6ee;color:#14171a;border-radius:6px;padding:20px;transform:rotate(1.5deg);box-shadow:0 14px 30px #0006;font-family:'Courier New',monospace;font-size:.85rem}
+.tk b{font:700 1.5rem 'Barlow Condensed',sans-serif}.tk hr{border:0;border-top:2px dashed #14171a55;margin:12px 0}
+.pg{height:10px;background:#14171a22;border-radius:5px;overflow:hidden}.pg i{display:block;width:66%;height:100%;background:#14171a}
+section{padding:64px 0}.alt{background:var(--sf)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+.sv{border-left:5px solid var(--pr)}.sv span{font-size:1.8rem}.sv p{margin:6px 0 0;color:var(--mu)}
+.nums{display:flex;flex-wrap:wrap;gap:32px;margin-top:22px}.nums b{font:700 2.6rem 'Barlow Condensed',sans-serif;display:block;line-height:1}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}.fg .f{grid-column:1/-1}
+footer{background:var(--dk);color:#aab3bf;padding:40px 0}footer b{color:#fff}
+/* admin */
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.login .card{width:100%;max-width:360px;display:grid;gap:14px}
+.app{display:flex;min-height:100vh}.sb{width:230px;background:var(--dk);color:#cbd2db;padding:20px 12px;display:flex;flex-direction:column;gap:4px}.sb .lg{padding:0 12px 18px}
+.ni{background:none;border:0;color:inherit;text-align:left;padding:11px 14px;border-radius:6px;font:inherit;cursor:pointer;display:block;text-decoration:none}
+.ni.on,.ni:hover{background:var(--pr);color:#14171a}
+.mn{flex:1;padding:28px;min-width:0}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.ac{display:flex;gap:8px;align-items:center}.sr{width:200px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:18px 0}.st b{display:block;font:700 2rem 'Barlow Condensed',sans-serif}
+.bar{display:grid;grid-template-columns:110px 1fr 30px;gap:10px;align-items:center;margin-top:10px}.bar i{display:block;height:14px;background:var(--pr);border-radius:3px;min-width:2px}
+.tw{overflow-x:auto;background:var(--sf);border:1px solid var(--bd);border-radius:10px}
+table{width:100%;border-collapse:collapse}th,td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}th{font-size:.8rem;color:var(--mu);font-weight:600}tr:last-child td{border:0}
+.bd{padding:3px 10px;border-radius:12px;font-size:.8rem;font-weight:600}.bd.p{background:#facc1533;color:#ca8a04}.bd.a{background:#3b82f633;color:#3b82f6}.bd.c{background:#22c55e33;color:#16a34a}.bd.x{background:#ef444433;color:#ef4444}.lw{color:#ef4444}
+.mo{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:16px;z-index:50}.md{width:100%;max-width:480px;max-height:90vh;overflow:auto}#fm{display:grid;gap:12px;margin:14px 0}
+#tt{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--dk);color:#fff;padding:12px 20px;border-radius:8px;z-index:99;border-left:5px solid var(--pr)}
+@media(max-width:800px){.hg,.fg{grid-template-columns:1fr}.tk{transform:none}.app{flex-direction:column}.sb{width:auto;flex-direction:row;overflow-x:auto}.sb .lg{display:none}.ni{white-space:nowrap}.mn{padding:16px}.sr{width:130px}.nav nav a:not(.btn){display:none}}
+</style>
+</head>
+<body>
+
+<div id="site">
+<header class="hd"><div class="wrap nav"><span class="lg">🔧 AutoMecânica</span><nav><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a><a href="#agendar">Agendar</a><a href="#contato">Contato</a><a class="btn" href="#admin">Área admin</a></nav></div></header>
+
+<div class="hero"><div class="wrap hg">
+<div><h1>Diagnóstico claro. Conserto sem surpresa.</h1><p>Você aprova o orçamento antes de qualquer peça ser trocada e acompanha o andamento da sua ordem de serviço online.</p><a class="btn" href="#agendar">Agendar atendimento</a> <a class="btn gh" href="#consulta">Acompanhar minha OS</a></div>
+<div class="tk"><b>Ordem de serviço #0128</b><hr>Veículo: Honda Civic 2018<br>Serviço: Troca de pastilhas e fluido<br>Entrada: hoje, 08:40<hr>Andamento<div class="pg"><i></i></div><p style="margin:8px 0 0">Em andamento · previsão 17h</p></div>
+</div></div>
+
+<section id="servicos"><div class="wrap"><h2>Serviços</h2><p class="mu">Do básico ao diagnóstico eletrônico, tudo na mesma oficina.</p><div class="grid" id="sv"></div></div></section>
+
+<section id="sobre" class="alt"><div class="wrap"><h2>Sobre a oficina</h2><p style="max-width:62ch">Somos uma oficina de bairro com padrão de concessionária: mecânicos certificados, scanner de última geração e peças com nota fiscal. Cada serviço sai com garantia por escrito.</p>
+<div class="nums"><div><b>15</b>anos de oficina</div><div><b>5.000+</b>carros atendidos</div><div><b>90 dias</b>de garantia</div><div><b>4,9</b>nota dos clientes</div></div>
+<div class="grid" id="dp"></div></div></section>
+
+<section id="agendar"><div class="wrap"><h2>Agende seu atendimento</h2><p class="mu">Preencha os dados e confirmamos o horário pelo telefone.</p>
+<form class="card fg" style="margin-top:20px;max-width:720px" onsubmit="ag(event)">
+<label>Nome<input name="nome" required></label><label>Telefone<input name="tel" required placeholder="(00) 00000-0000"></label>
+<label>Veículo<input name="vei" required placeholder="Modelo e ano"></label><label>Serviço<select name="srv" id="ss"></select></label>
+<label class="f">Data desejada<input name="dt" id="dt" type="date" required></label>
+<div class="f"><button class="btn">Solicitar agendamento</button></div></form></div></section>
+
+<section id="consulta" class="alt"><div class="wrap"><h2>Acompanhe sua ordem de serviço</h2><p class="mu">Digite o número da OS que está no seu comprovante.</p>
+<div class="ac" style="margin:16px 0;max-width:360px"><input id="cn" type="number" placeholder="Ex.: 1"><button class="btn" onclick="cs()">Consultar</button></div><div id="cr" style="max-width:460px"></div></div></section>
+
+<footer id="contato"><div class="wrap"><b class="lg">🔧 AutoMecânica</b><p>Rua das Oficinas, 123 – Centro<br>Segunda a sexta, 8h às 18h · Sábado, 8h às 12h<br>Telefone: (00) 0000-0000</p><a class="btn" href="https://wa.me/5500000000000" target="_blank" rel="noopener">Chamar no WhatsApp</a></div></footer>
+</div>
+
+<div id="adm" hidden></div><div id="md"></div>
+
+<script>
+const K='automecanica_v1',ST=['Pendente','Em Andamento','Concluído'],BC={'Pendente':'p','Em Andamento':'a','Concluído':'c','Confirmado':'c','Cancelado':'x'};
+const $=s=>document.querySelector(s),hoje=new Date().toISOString().slice(0,10);
+const R=v=>'R$ '+Number(v||0).toFixed(2).replace('.',','),D=d=>d?d.split('-').reverse().join('/'):'';
+const E=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const seed=()=>({seq:{os:3},
+clientes:[{id:1,nome:'Carlos Silva',telefone:'(00) 90000-1111',email:'carlos@email.com'},{id:2,nome:'Mariana Souza',telefone:'(00) 90000-2222',email:'mariana@email.com'}],
+veiculos:[{id:1,placa:'ABC1D23',modelo:'Honda Civic',ano:2018,clienteId:1},{id:2,placa:'QWE4R56',modelo:'Fiat Argo',ano:2021,clienteId:2}],
+os:[{id:1,num:1,clienteId:1,veiculoId:1,descricao:'Troca de óleo e filtros',valor:320,status:'Concluído',data:hoje},{id:2,num:2,clienteId:2,veiculoId:2,descricao:'Revisão de freios',valor:580.5,status:'Em Andamento',data:hoje},{id:3,num:3,clienteId:1,veiculoId:1,descricao:'Diagnóstico de ar-condicionado',valor:150,status:'Pendente',data:hoje}],
+agenda:[{id:1,nome:'Paulo Lima',telefone:'(00) 90000-3333',veiculo:'VW Gol 2015',servico:'Revisão completa',data:hoje,status:'Pendente'}],
+estoque:[{id:1,peca:'Filtro de óleo',qtd:12,minimo:5,preco:35},{id:2,peca:'Pastilha de freio',qtd:3,minimo:4,preco:140},{id:3,peca:'Vela de ignição',qtd:20,minimo:8,preco:28}]});
+let DB;try{DB=JSON.parse(localStorage.getItem(K))}catch(e){}
+if(!DB||!DB.seq)DB=seed();
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(DB))}catch(e){}};
+const CFG={
+clientes:{t:'Clientes',f:[['nome','Nome','text'],['telefone','Telefone','text'],['email','E-mail','email']]},
+veiculos:{t:'Veículos',f:[['placa','Placa','text'],['modelo','Modelo','text'],['ano','Ano','number'],['clienteId','Cliente','ref:clientes']]},
+os:{t:'Ordens de serviço',f:[['clienteId','Cliente','ref:clientes'],['veiculoId','Veículo','ref:veiculos'],['descricao','Serviço','text'],['valor','Total (R$)','number'],['status','Status','sel:'+ST.join('|')],['data','Data','date']]},
+agenda:{t:'Agenda',f:[['nome','Cliente','text'],['telefone','Telefone','text'],['veiculo','Veículo','text'],['servico','Serviço','text'],['data','Data','date'],['status','Status','sel:Pendente|Confirmado|Cancelado']]},
+estoque:{t:'Estoque',f:[['peca','Peça','text'],['qtd','Quantidade','number'],['minimo','Mínimo','number'],['preco','Preço (R$)','number']]}};
+const QK={os:['status','Concluído','Finalizar'],agenda:['status','Confirmado','Confirmar']};
+const NAV=[['dash','📊','Dashboard'],['os','📋','Ordens de serviço'],['clientes','👥','Clientes'],['veiculos','🚗','Veículos'],['agenda','📅','Agenda'],['estoque','📦','Estoque']];
+const SV=[['🛢️','Troca de óleo','Óleo e filtros de qualidade, com checagem dos níveis.'],['🛑','Freios','Pastilhas, discos e fluido, com teste de frenagem.'],['⚙️','Suspensão e direção','Amortecedores, buchas e alinhamento.'],['🔋','Elétrica e bateria','Diagnóstico com scanner, bateria e alternador.'],['❄️','Ar-condicionado','Higienização, recarga e reparo.'],['🔍','Revisão completa','Check-up preventivo com mais de 40 itens.']];
+const DP=[['Fizeram a revisão no prazo e me mostraram cada peça trocada.','Ricardo M.'],['Orçamento igual ao combinado. Não tive surpresa na hora de pagar.','Ana P.'],['Acompanhei tudo pelo site e retirei o carro no horário.','Fernando S.']];
+$('#sv').innerHTML=SV.map(s=>`<div class="card sv"><span>${s[0]}</span><h3>${s[1]}</h3><p>${s[2]}</p></div>`).join('');
+$('#dp').innerHTML=DP.map(d=>`<div class="card"><p style="margin:0 0 10px">“${d[0]}”</p><b>${d[1]}</b></div>`).join('');
+$('#ss').innerHTML=SV.map(s=>`<option>${s[1]}</option>`).join('')+'<option>Outro</option>';$('#dt').min=hoje;
+
+function toast(m){let t=$('#tt');if(t)t.remove();t=document.createElement('div');t.id='tt';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
+function ag(ev){ev.preventDefault();const f=ev.target,g=n=>f[n].value.trim();DB.agenda.push({id:Date.now(),nome:g('nome'),telefone:g('tel'),veiculo:g('vei'),servico:g('srv'),data:g('dt'),status:'Pendente'});save();f.reset();toast('Agendamento enviado. Vamos ligar para confirmar o horário.')}
+function cs(){const n=parseInt($('#cn').value),o=DB.os.find(x=>x.num===n);$('#cr').innerHTML=o?`<div class="card"><b>OS #${String(n).padStart(4,'0')}</b> · ${lab('veiculos',o.veiculoId)}<p>${E(o.descricao)}</p><span class="bd ${BC[o.status]}">${o.status}</span></div>`:'<p class="mu">Não encontramos essa ordem de serviço. Confira o número no comprovante.</p>'}
+
+/* admin */
+let view='dash',q='',logged=false,wasAdm=false;try{logged=sessionStorage.getItem('au')==='1'}catch(e){}
+function route(){const a=location.hash==='#admin';$('#site').hidden=a;$('#adm').hidden=!a;if(a)renderAdm();else if(wasAdm)scrollTo(0,0);wasAdm=a}
+function renderAdm(){const el=$('#adm');
+if(!logged){el.innerHTML=`<div class="login"><div class="card"><h2>🔧 Painel administrativo</h2><p class="mu" style="margin:0">Acesso restrito à equipe da oficina.</p><label>Usuário<input id="u" autocomplete="username"></label><label>Senha<input id="p" type="password" onkeydown="if(event.key=='Enter')login()"></label><button class="btn" onclick="login()">Entrar</button><p class="mu" style="margin:0;font-size:.8rem">Demonstração: admin / 1234 · <a href="#">Voltar ao site</a></p></div></div>`;return}
+el.innerHTML=`<div class="app"><aside class="sb"><div class="lg">🔧 AutoMecânica</div>${NAV.map(n=>`<button class="ni ${n[0]==view?'on':''}" onclick="go('${n[0]}')">${n[1]} ${n[2]}</button>`).join('')}<a class="ni" href="#">🌐 Ver site</a><button class="ni" onclick="logout()">🚪 Sair</button></aside><main class="mn" id="mn"></main></div>`;refresh()}
+function login(){if($('#u').value.trim()=='admin'&&$('#p').value=='1234'){logged=true;try{sessionStorage.setItem('au','1')}catch(e){}renderAdm()}else toast('Usuário ou senha incorretos.')}
+function logout(){logged=false;try{sessionStorage.removeItem('au')}catch(e){}renderAdm()}
+function go(v){view=v;q='';renderAdm()}
+function refresh(){view=='dash'?dash():page(view)}
+function lab(r,id){const x=DB[r].find(y=>y.id==id);return x?E(r=='clientes'?x.nome:x.placa+' · '+x.modelo):'—'}
+function cell(k,f,e){const v=e[f[0]],t=f[2];
+if(t.startsWith('ref'))return lab(t.slice(4),v);
+if(f[0]=='status')return `<span class="bd ${BC[v]}">${E(v)}</span>`;
+if(f[0]=='valor'||f[0]=='preco')return R(v);
+if(t=='date')return D(v);
+if(k=='estoque'&&f[0]=='qtd')return `<b class="${v<=e.minimo?'lw':''}">${E(v)}</b>`;
+return E(v)}
+function tb(k,lim,act){const C=CFG[k];let L=DB[k].slice().reverse();
+if(q)L=L.filter(e=>C.f.some(f=>cell(k,f,e).replace(/<[^>]*>/g,'').toLowerCase().includes(q)));
+if(lim)L=L.slice(0,lim);const Q=QK[k];
+return `<div class="tw"><table><thead><tr>${k=='os'?'<th>Nº</th>':''}${C.f.map(f=>`<th>${f[1]}</th>`).join('')}${act?'<th>Ações</th>':''}</tr></thead><tbody>${L.map(e=>`<tr>${k=='os'?`<td><b>#${String(e.num).padStart(4,'0')}</b></td>`:''}${C.f.map(f=>`<td>${cell(k,f,e)}</td>`).join('')}${act?`<td><div class="ac">${Q&&e[Q[0]]!=Q[1]&&e.status!='Cancelado'?`<button class="b2" onclick="quick('${k}',${e.id})">✔ ${Q[2]}</button>`:''}<button class="b2" onclick="form('${k}',${e.id})">Editar</button><button class="b2 dg" onclick="del('${k}',${e.id})">Excluir</button></div></td>`:''}</tr>`).join('')||`<tr><td colspan="9" class="mu" style="text-align:center;padding:28px">Nada por aqui ainda. Use “Novo” para cadastrar.</td></tr>`}</tbody></table></div>`}
+function page(k){$('#mn').innerHTML=`<div class="top"><div><h1>${CFG[k].t}</h1><p class="mu" style="margin:4px 0 0">${DB[k].length} registro(s)</p></div><div class="ac"><input class="sr" placeholder="🔍 Buscar" value="${E(q)}" oninput="q=this.value.toLowerCase();$('#tbx').innerHTML=tb('${k}',0,1)"><button class="btn" onclick="form('${k}')">+ Novo</button></div></div><div id="tbx">${tb(k,0,1)}</div>`}
+function dash(){const o=DB.os,c=s=>o.filter(x=>x.status==s).length,fat=o.filter(x=>x.status=='Concluído').reduce((a,x)=>a+x.valor,0),mx=Math.max(1,...ST.map(c));
+$('#mn').innerHTML=`<h1>Dashboard</h1><p class="mu" style="margin:4px 0 0">Resumo da oficina</p><div class="stats">${[['OS abertas',c('Pendente')+c('Em Andamento')],['OS concluídas',c('Concluído')],['Faturamento',R(fat)],['Agendamentos pendentes',DB.agenda.filter(a=>a.status=='Pendente').length],['Peças em falta',DB.estoque.filter(e=>e.qtd<=e.minimo).length],['Clientes',DB.clientes.length]].map(s=>`<div class="card st"><span class="mu">${s[0]}</span><b>${s[1]}</b></div>`).join('')}</div><div class="card"><h3>OS por status</h3>${ST.map(s=>`<div class="bar"><span>${s}</span><i style="width:${c(s)/mx*100}%"></i><b>${c(s)}</b></div>`).join('')}</div><h3 style="margin:22px 0 10px">Últimas ordens de serviço</h3>${tb('os',5,0)}<p style="margin-top:20px"><button class="b2 dg" onclick="if(confirm('Apagar todos os dados e restaurar os exemplos?')){DB=seed();save();refresh();toast('Dados restaurados.')}">Restaurar dados de exemplo</button></p>`}
+function form(k,id){const C=CFG[k],e=id?DB[k].find(x=>x.id==id):{};
+const inp=f=>{const t=f[2],v=e[f[0]]??(t=='date'?hoje:'');let h;
+if(t.startsWith('ref')){const r=t.slice(4);h=`<select name="${f[0]}">${DB[r].map(x=>`<option value="${x.id}" ${x.id==v?'selected':''}>${lab(r,x.id)}</option>`).join('')}</select>`}
+else if(t.startsWith('sel'))h=`<select name="${f[0]}">${t.slice(4).split('|').map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('')}</select>`;
+else h=`<input name="${f[0]}" type="${t}" value="${E(v)}" ${t=='number'?'step="any" min="0"':''}>`;
+return `<label>${f[1]}${h}</label>`};
+$('#md').innerHTML=`<div class="mo" onclick="if(event.target==this)cm()"><div class="card md"><h2>${id?'Editar':'Novo'} · ${C.t}</h2><div id="fm">${C.f.map(inp).join('')}</div><div class="ac" style="justify-content:flex-end"><button class="b2" onclick="cm()">Cancelar</button><button class="btn" onclick="sv('${k}',${id||0})">Salvar</button></div></div></div>`}
+const cm=()=>$('#md').innerHTML='';
+function sv(k,id){const C=CFG[k],o={};for(const f of C.f){let v=$(`#fm [name=${f[0]}]`).value.trim();if(f[2]=='number')v=parseFloat(v)||0;else if(f[2].startsWith('ref'))v=+v;o[f[0]]=v}
+if(!o[C.f[0][0]]||(k=='os'&&!o.descricao))return toast('Preencha os campos obrigatórios (cliente e serviço).');
+if(id)Object.assign(DB[k].find(x=>x.id==id),o);else{o.id=Date.now();if(k=='os')o.num=++DB.seq.os;DB[k].push(o)}
+save();cm();refresh();toast('Registro salvo.')}
+function del(k,id){if(confirm('Excluir este registro? Essa ação não pode ser desfeita.')){DB[k]=DB[k].filter(x=>x.id!=id);save();refresh();toast('Registro excluído.')}}
+function quick(k,id){const Q=QK[k];DB[k].find(x=>x.id==id)[Q[0]]=Q[1];save();refresh();toast('Status atualizado.')}
+addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>

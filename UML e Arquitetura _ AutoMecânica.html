@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UML e Arquitetura | AutoMecânica</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f4f6;--tx:#14171a;--mu:#5f6b7a;--bd:#dde1e7;--pr:#f5c400;--dk:#14171a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1013;--tx:#e8eaed;--mu:#98a2b0}}
+:root[data-theme="dark"]{--bg:#0e1013;--tx:#e8eaed;--mu:#98a2b0}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;font:15px/1.6 Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--dk);z-index:10}
+h1,h2{font-family:'Barlow Condensed','Arial Narrow',sans-serif;line-height:1.05;margin:0}
+h1{font-size:clamp(2.4rem,7vw,4rem)}h2{font-size:2rem;margin-bottom:6px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.hero{background:var(--dk);color:#fff;padding:48px 0;border-bottom:8px solid var(--pr)}.hero p{color:#cbd2db;max-width:58ch;margin:12px 0 0}
+section{padding:36px 0}.mu{color:var(--mu);margin:0}
+.box{background:#fff;color:#14171a;border:1px solid #dde1e7;border-radius:10px;padding:16px;overflow-x:auto;margin-top:14px}
+.tw{overflow-x:auto;margin-top:14px;border:1px solid #dde1e7;border-radius:10px;background:#fff;color:#14171a}
+table{width:100%;border-collapse:collapse}th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #dde1e7}th{background:#14171a;color:#fff;font-weight:600}tr:last-child td{border:0}
+</style>
+</head>
+<body>
+<div class="hero"><div class="wrap"><h1>UML e arquitetura</h1><p>Os diagramas que completam o projeto: casos de uso, classes, sequência e arquitetura em camadas.</p></div></div>
+
+<section><div class="wrap"><h2>Checklist do projeto</h2>
+<div class="tw"><table>
+<tr><th>Item</th><th>Situação</th></tr>
+<tr><td>Protótipo funcional (site e painel admin)</td><td>Pronto</td></tr>
+<tr><td>Modelo de banco (MER) e script SQL</td><td>Pronto</td></tr>
+<tr><td>Fluxograma do processo</td><td>Pronto</td></tr>
+<tr><td>UML: casos de uso, classes e sequência</td><td>Nesta página</td></tr>
+<tr><td>Diagrama de arquitetura</td><td>Nesta página</td></tr>
+</table></div></div></section>
+
+<section><div class="wrap"><h2>1. UML: casos de uso</h2><p class="mu">Quem usa o sistema e o que cada pessoa consegue fazer.</p>
+<div class="box"><pre class="mermaid">
+flowchart LR
+CL["👤 Cliente"]
+AD["👤 Administrador"]
+ME["👤 Mecânico"]
+subgraph SYS["Sistema AutoMecânica"]
+UC1(["Agendar atendimento"])
+UC2(["Consultar andamento da OS"])
+UC3(["Fazer login"])
+UC4(["Gerenciar clientes e veículos"])
+UC5(["Confirmar agendamentos"])
+UC6(["Abrir e gerenciar OS"])
+UC7(["Lançar serviços e peças"])
+UC8(["Controlar estoque"])
+UC9(["Registrar pagamento"])
+UC10(["Ver dashboard"])
+end
+CL --- UC1
+CL --- UC2
+AD --- UC3
+AD --- UC4
+AD --- UC5
+AD --- UC6
+AD --- UC8
+AD --- UC9
+AD --- UC10
+ME --- UC3
+ME --- UC6
+ME --- UC7
+</pre></div></div></section>
+
+<section><div class="wrap"><h2>2. UML: diagrama de classes</h2><p class="mu">As mesmas entidades do banco, agora com métodos. ItemServico e ItemPeca ligam a OS aos serviços e às peças.</p>
+<div class="box"><pre class="mermaid">
+classDiagram
+class Cliente{
++int idCliente
++String nome
++String telefone
++cadastrar()
++consultarOS()
+}
+class Veiculo{
++int idVeiculo
++String placa
++String modelo
++int ano
+}
+class Funcionario{
++int idFuncionario
++String nome
++String cargo
++login()
+}
+class Agendamento{
++int idAgendamento
++Date dataDesejada
++String status
++confirmar()
++cancelar()
+}
+class OrdemServico{
++int idOS
++String status
++float valorTotal
++abrir()
++adicionarItem()
++concluir()
+}
+class Servico{
++int idServico
++String nome
++float precoBase
+}
+class Peca{
++int idPeca
++String nome
++int qtdEstoque
++baixarEstoque()
+}
+class Fornecedor{
++int idFornecedor
++String nome
+}
+class ItemServico{
++int quantidade
++float valorUnitario
+}
+class ItemPeca{
++int quantidade
++float valorUnitario
+}
+class Pagamento{
++int idPagamento
++String forma
++float valor
++registrar()
+}
+Cliente "1" --> "0..*" Veiculo : possui
+Cliente "0..1" --> "0..*" Agendamento : solicita
+Agendamento "0..1" --> "0..1" OrdemServico : origina
+Veiculo "1" --> "0..*" OrdemServico : recebe
+Funcionario "0..1" --> "0..*" OrdemServico : executa
+OrdemServico "1" *-- "0..*" ItemServico : contém
+OrdemServico "1" *-- "0..*" ItemPeca : usa
+Servico "1" --> "0..*" ItemServico
+Peca "1" --> "0..*" ItemPeca
+Fornecedor "0..1" --> "0..*" Peca : fornece
+OrdemServico "1" --> "0..*" Pagamento : é paga por
+</pre></div></div></section>
+
+<section><div class="wrap"><h2>3. UML: diagrama de sequência</h2><p class="mu">O que acontece, em ordem, do agendamento até fechar a OS.</p>
+<div class="box"><pre class="mermaid">
+sequenceDiagram
+actor C as Cliente
+actor R as Recepção
+participant P as Site e Painel
+participant A as API Flask
+participant B as Banco SQLite
+C->>P: Agenda pelo site
+P->>A: POST /agendamentos
+A->>B: INSERT agendamento (Pendente)
+R->>P: Confirma o agendamento
+P->>A: PUT /agendamentos/:id
+R->>P: Abre a OS quando o carro chega
+P->>A: POST /ordens
+A->>B: INSERT ordem_servico
+R->>P: Lança serviços e peças
+P->>A: POST /ordens/:id/itens
+A->>B: INSERT os_servico e os_peca
+B-->>B: Trigger baixa estoque e soma o total
+R->>P: Finalizar OS
+P->>A: POST /ordens/:id/concluir
+A->>B: UPDATE status Concluído
+B-->>A: Trigger grava data de saída
+A-->>P: OK
+P-->>R: OS fechada
+C->>P: Consulta o andamento pelo número da OS
+</pre></div></div></section>
+
+<section><div class="wrap"><h2>4. Arquitetura em 3 camadas</h2><p class="mu">Cada camada só conversa com a vizinha. No protótipo publicado, o navegador guarda os dados (localStorage) no lugar da API e do banco. Em produção, entram o Flask e o SQLite.</p>
+<div class="box"><pre class="mermaid">
+flowchart LR
+subgraph U["Usuários"]
+U1["Cliente no navegador"]
+U2["Equipe da oficina no navegador"]
+end
+subgraph F["Camada de apresentação"]
+S["Site público: HTML, CSS e JS"]
+P["Painel administrativo: HTML, CSS e JS"]
+end
+subgraph B["Camada de aplicação"]
+API["API REST em Python (Flask)"]
+RN["Regras de negócio e login"]
+end
+subgraph D["Camada de dados"]
+DB[("SQLite: 11 tabelas, triggers e views")]
+end
+U1 --> S
+U2 --> P
+S -- "HTTP e JSON" --> API
+P -- "HTTP e JSON" --> API
+API --> RN
+RN -- "SQL" --> DB
+</pre></div></div></section>
+
+<!--claude-mermaid-runtime-begin:3477-->
+<style>.mermaid-diagram{margin-block:4px}.mermaid-diagram svg{display:block;margin:0 auto;max-width:100%;height:auto}</style>
+<script src="/_runtime/mermaid-11.16.1.min.js"></script>
+<script>(function(){
+var CFG={"palettes":{"light":{"surface":"#f4efe4","text":"#42392e","line":"#8a7f6d","border":"#7a6c52","bg":"#fffdf8"},"dark":{"surface":"#262b34","text":"#f2f3f5","line":"#a8adb8","border":"#9aa4b8","bg":"#1f232b"}}};
+if(typeof mermaid==='undefined')return;
+var pres=Array.prototype.slice.call(document.querySelectorAll('pre.mermaid')).filter(function(p){if(p.hasAttribute('data-claude-mermaid-claimed'))return false;p.setAttribute('data-claude-mermaid-claimed','1');return true;});
+if(!pres.length)return;
+var mq=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+var root=document.documentElement;
+var items=pres.map(function(pre){
+var mount=document.createElement('div');mount.className='mermaid-diagram';
+return {pre:pre,mount:mount,src:pre.textContent||''};
+});
+var seq=0;
+var renderGen=0;
+var lastKey='';
+function pageBg(fallback){
+var els=[document.body,document.documentElement];
+for(var i=0;i<els.length;i++){
+var c=els[i]&&getComputedStyle(els[i]).backgroundColor;
+if(c&&c!=='transparent'&&c!=='rgba(0, 0, 0, 0)')return c;
+}
+return fallback;
+}
+function render(){
+var theme=root.getAttribute('data-theme');
+var dark=theme==='dark'||(!!(mq&&mq.matches)&&theme!=='light');
+var pal=dark?CFG.palettes.dark:CFG.palettes.light;
+var bg=pageBg(pal.bg);
+var key=(dark?'d':'l')+'|'+bg;
+if(key===lastKey)return;
+lastKey=key;
+var gen=++renderGen;
+var font=getComputedStyle(document.body).fontFamily||'sans-serif';
+var nat={useMaxWidth:false};
+mermaid.initialize({
+startOnLoad:false,securityLevel:'strict',theme:'base',
+flowchart:nat,sequence:nat,er:nat,state:nat,class:nat,pie:nat,
+gantt:nat,journey:nat,timeline:nat,gitGraph:nat,mindmap:nat,xyChart:nat,
+quadrantChart:nat,sankey:nat,c4:nat,requirement:nat,block:nat,
+packet:nat,kanban:nat,architecture:nat,radar:nat,
+themeVariables:{background:bg,mainBkg:pal.surface,primaryColor:pal.surface,
+primaryTextColor:pal.text,lineColor:pal.line,primaryBorderColor:pal.border,
+nodeBorder:pal.border,clusterBorder:pal.border,edgeLabelBackground:bg,
+clusterBkg:'rgba(127,127,127,0.07)',titleColor:pal.text,
+darkMode:dark,rowOdd:bg,rowEven:'rgba(127,127,127,0.07)',
+attributeBackgroundColorOdd:bg,attributeBackgroundColorEven:'rgba(127,127,127,0.07)',
+fontSize:'16px',fontFamily:font},
+themeCSS:'.node rect, .node circle, .node polygon, .node path, .cluster rect { stroke-width: 2px; }'
+});
+items.forEach(function(it){
+var id='claude-mermaid-'+seq++;
+mermaid.render(id,it.src).then(function(r){
+if(gen!==renderGen)return;
+var prev=it.pre.previousElementSibling;
+if(prev&&prev.className==='mermaid-diagram'&&prev!==it.mount)return;
+it.mount.innerHTML=r.svg;
+if(!it.mount.parentNode)it.pre.parentNode.insertBefore(it.mount,it.pre);
+it.pre.style.display='none';
+},function(){
+var scratch=document.getElementById(id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+scratch=document.getElementById('d'+id);
+if(scratch)scratch.parentNode.removeChild(scratch);
+if(gen!==renderGen)return;
+if(it.mount.parentNode)it.mount.parentNode.removeChild(it.mount);
+it.pre.style.display='';
+});
+});
+}
+render();
+if(mq&&mq.addEventListener)mq.addEventListener('change',render);
+if(typeof MutationObserver!=='undefined')new MutationObserver(render).observe(root,{attributes:true,attributeFilter:['data-theme']});
+})();</script>
+<!--claude-mermaid-runtime-end-->
+</body>
+</html>
